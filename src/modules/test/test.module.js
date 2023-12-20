@@ -28,8 +28,8 @@ router.get("/:id", (req, res) => {
 
 router.post(
   "/",
-  // authorizationMiddleware.checkUser,
-  // authorizationMiddleware.adminRole,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.adminRole,
   (req, res) => {
     testController.createTest(req, res);
   }

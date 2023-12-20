@@ -20,16 +20,18 @@ router.get("/getusers", (req, res) => {
   userController.getUsers(req, res);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id",  (req, res) => {
   userController.getUser(req, res);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id",  (req, res) => {
   userController.updateUser(req, res);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authorizationMiddleware.checkUser, authorizationMiddleware.adminRole, (req, res) => {
   userController.deleteUser(req, res);
 });
+
+
 
 module.exports = { router };

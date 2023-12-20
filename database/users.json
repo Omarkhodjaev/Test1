@@ -1,16 +1,8 @@
 [
     {
-        "id": 3,
-        "login": "test",
-        "password": "$2b$10$NKMWkmkK.jggD1dLrnz/d.EUznPs2zKXrzPGuzgLLloQK5aKDqrpi",
-        "full_name": "Toxir",
-        "birthdate": "2000-10-10",
-        "role": "admin"
-    },
-    {
-        "id": 4,
-        "login": "men",
-        "password": "$2b$10$TP8dnOCQd2/rR5xy1eRweuwXM5qdp1OkzKo5hztUaU4mPjc/4al7u",
+        "id": 1,
+        "login": "testl",
+        "password": "$2b$10$PjGoLGR.QHJT4dwjKL7jC.TvKoqP5gKyGu4oXrP2MBbt12rllJWt6",
         "full_name": "Toxir",
         "birthdate": "2000-10-10",
         "role": "admin"

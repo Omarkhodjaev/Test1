@@ -6,7 +6,6 @@ const { UserFoundById } = require("./userFoundById.js");
 class AuthorizationMiddleware {
   adminRole(req, res, next) {
     const userId = req.userId;
-
     const foundUser =  UserFoundById(userId);
 
     if (foundUser && foundUser.role === "admin") {

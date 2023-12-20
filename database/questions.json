@@ -1,19 +1,22 @@
 [
     {
         "id": 1,
-        "title": "Apple so'zini tarjimasini toping"
-    },
-    {
-        "id": 2,
-        "title": "salom"
+        "title": "title test"
     },
     {
         "id": 3,
         "title": "salom"
     },
-    { 
+    {
         "id": 4,
         "title": "Bu yangi test"
+    },
+    {
+        "id": 5,
+        "title": "yangi savol"
+    },
+    {
+        "id": 6,
+        "title": "yangi savol"
     }
 ]
-

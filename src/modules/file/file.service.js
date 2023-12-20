@@ -19,9 +19,7 @@ class FileService {
     const fileDataSource = new DataSource(filePath);
     const files = fileDataSource.read();
 
-    const generatedId = generationId(files);
-    
-    const newFile = 
+
 
     file.mv(uploadPath, (err) => {
       if (err) {

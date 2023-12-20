@@ -3,7 +3,7 @@ const { jwtKey } = require("../config/index.js");
 
 const hash = (data) => {
   const token = jwt.sign(data, jwtKey);
-
+  
   return token;
 };
 
