@@ -6,5 +6,13 @@
         "full_name": "Toxir",
         "birthdate": "2000-10-10",
         "role": "admin"
+    },
+    {
+        "id": 2,
+        "login": "yangi",
+        "password": "$2b$10$eYaJCXzx.zjmHjbOtWUYYu9jfhp4JRU5vxeL0S3VT7Xn3jGtcIv6K",
+        "full_name": "Toxir yangi",
+        "birthdate": "2000-20",
+        "role": "admin"
     }
 ]

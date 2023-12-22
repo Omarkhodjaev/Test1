@@ -18,7 +18,7 @@ const testController = new TestController(
 );
 const authorizationMiddleware = new AuthorizationMiddleware();
 
-router.get("/", (req, res) => {
+router.get("/", authorizationMiddleware.checkUser, authorizationMiddleware.userRole, (req, res) => {
   testController.getAllTest(req, res);
 });
 

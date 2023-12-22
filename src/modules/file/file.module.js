@@ -7,7 +7,7 @@ const router = Router();
 const fileService = new FileService();
 const fileController = new FileController(fileService);
 
-router.post("/", (req, res) => {
+router.post("/",  (req, res) => {
   fileController.createFile(req, res);
 });
 

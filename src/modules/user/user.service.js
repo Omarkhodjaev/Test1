@@ -2,6 +2,7 @@ const { ResData } = require("../../library/resData.js");
 const {
   LoginOrPassWrongException,
   UserNotFound,
+  LoginAlreadyExistException,
 } = require("./exception/user.exception.js");
 const path = require("path");
 const { jwtSign } = require("../../library/jwt.js");
