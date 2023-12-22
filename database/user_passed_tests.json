@@ -5,7 +5,7 @@
         "test_id": 1,
         "total_question": 2,
         "passed_question": 0,
-        "date": "2000-10-10 12:12:12" 
+        "date": "2000-10-10 12:12:12"
     },
     {
         "id": 2,
@@ -13,6 +13,14 @@
         "test_id": 1,
         "total_question": 2,
         "passed_question": 2,
-        "date": "2000-10-01 11:12:12" 
+        "date": "2000-10-01 11:12:12"
+    },
+    {
+        "id": 3,
+        "user_id": 1,
+        "test_id": 1,
+        "total_question": 4,
+        "passed_question": 2,
+        "date": "2023-12-22 06:37:37"
     }
 ]

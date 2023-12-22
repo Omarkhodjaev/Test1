@@ -16,7 +16,7 @@ router.post("/register", (req, res) => {
   userController.register(req, res);
 });
 
-router.get("/getusers", (req, res) => {
+router.get("/getusers", authorizationMiddleware.checkUser,authorizationMiddleware.userRole,(req, res) => {
   userController.getUsers(req, res);
 });
 
