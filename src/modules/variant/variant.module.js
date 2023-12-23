@@ -26,7 +26,8 @@ router.put("/:id", (req, res) => {
   variantController.update(req, res);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authorizationMiddleware.checkUser,
+authorizationMiddleware.adminRole, (req, res) => {
   variantController.delete(req, res);
 });
 

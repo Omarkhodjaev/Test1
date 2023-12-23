@@ -1,18 +1,27 @@
 [
     {
-        "id": 1,
-        "login": "testl",
-        "password": "$2b$10$PjGoLGR.QHJT4dwjKL7jC.TvKoqP5gKyGu4oXrP2MBbt12rllJWt6",
-        "full_name": "Toxir",
-        "birthdate": "2000-10-10",
-        "role": "admin"
-    },
-    {
         "id": 2,
         "login": "yangi",
         "password": "$2b$10$eYaJCXzx.zjmHjbOtWUYYu9jfhp4JRU5vxeL0S3VT7Xn3jGtcIv6K",
         "full_name": "Toxir yangi",
         "birthdate": "2000-20",
+        "role": "admin"
+    },
+    {
+        "id": 3,
+        "login": "men",
+        "password": "$2b$10$e4Isol.jgY0luJKKx4uo5.9oOeuuIlyHUJkSwveR7mm345siH6Tqq",
+        "full_name": "Nasriddinov Sadriddin",
+        "birthdate": "2000-10-10",
+        "role": "admin",
+        "birth_date": "2000-10-10"
+    },
+    {
+        "id": 4,
+        "login": "sen",
+        "password": "$2b$10$HeFFwvtbrpTV0wuwFCFW0O46OBdtMoJz4IQMAZcJyTHVelQhqC3BS",
+        "full_name": "Toxir",
+        "birthdate": "2000-10-10",
         "role": "admin"
     }
 ]

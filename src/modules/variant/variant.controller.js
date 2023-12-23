@@ -77,7 +77,7 @@ class VariantController {
       if (error) {
         throw new VariantIdMustBeNumberException(error.message);
       }
-  
+
       const resData = await this.#variantService.delete(value);
       res.status(resData.statusCode).json(resData);
     } catch (error) {

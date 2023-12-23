@@ -2,7 +2,13 @@ const { ResData } = require("../../library/resData");
 const {
   UserBadRequestException,
   UserRegisterBadrequestException,
+  UserNotFound,
 } = require("./exception/user.exception");
+const {
+  userScheme,
+  idSchema,
+  userRegisterScheme,
+} = require("./validation/user.validation");
 
 class UserController {
   #userService;
@@ -16,9 +22,15 @@ class UserController {
   }
 
   async getUser(req, res) {
-    const userId = Number(req.params.id);
     try {
-      const resData = await this.#userService.getUserById(userId);
+      const userId = Number(req.params.id);
+      const { error, value } = idSchema.validate(userId);
+
+      if (error) {
+        throw new UserNotFound(error.message);
+      }
+
+      const resData = await this.#userService.getUserById(value);
       return res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(
@@ -35,8 +47,19 @@ class UserController {
     try {
       const dto = req.body;
       const userId = Number(req.params.id);
+      const { error, value } = idSchema.validate(userId);
 
-      const resData = await this.#userService.updateUser(dto, userId);
+      const validated = userScheme.validate(dto);
+
+      if (validated.error) {
+        throw new UserBadRequestException(validated.error.message);
+      }
+
+      if (error) {
+        throw new UserNotFound(error.message);
+      }
+
+      const resData = await this.#userService.updateUser(dto, value);
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(
@@ -53,17 +76,11 @@ class UserController {
   async register(req, res) {
     try {
       const dto = req.body;
-   
 
-      if (
-        !dto ||
-        !dto.login ||
-        !dto.password ||
-        !dto.role ||
-        !dto.birthdate ||
-        !dto.fullName
-      ) {
-        throw new UserRegisterBadrequestException();
+      const validated = userRegisterScheme.validate(dto);
+
+      if (validated.error) {
+        throw new UserRegisterBadrequestException(validated.error.message);
       }
 
       const resData = await this.#userService.register(dto);
@@ -83,8 +100,10 @@ class UserController {
     try {
       const dto = req.body;
 
-      if (!dto || !dto.login || !dto.password) {
-        throw new UserBadRequestException();
+      const validated = userScheme.validate(dto);
+
+      if (validated.error) {
+        throw new UserBadRequestException(validated.error.message);
       }
 
       const resData = await this.#userService.login(dto);
@@ -104,8 +123,13 @@ class UserController {
   async deleteUser(req, res) {
     try {
       const userId = Number(req.params.id);
+      const { error, value } = idSchema.validate(userId);
 
-      const resData = await this.#userService.deleteUser(userId);
+      if (error) {
+        throw new UserNotFound(error.message);
+      }
+
+      const resData = await this.#userService.deleteUser(value);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {

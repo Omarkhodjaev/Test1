@@ -105,12 +105,14 @@ class UserService {
     return resData;
   }
 
-  updateUser(dto, userId) {
+ async updateUser(dto, userId) {
     const { data: foundUser } = this.getUserById(userId);
+
+    const hashedPassword = await hashed(dto.password);
 
     foundUser.id = foundUser.id;
     foundUser.login = dto.login;
-    foundUser.password = dto.password;
+    foundUser.password = hashedPassword;
     foundUser.full_name = dto.full_name;
     foundUser.birth_date = dto.birth_date;
     foundUser.role = foundUser.role;

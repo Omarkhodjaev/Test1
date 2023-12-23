@@ -88,7 +88,6 @@ class VariantService {
       "../../../database",
       "variants.json"
     );
-
     const variantsDataSource = new DataSource(variantPath);
     const variants = variantsDataSource.read();
     const foundVariant = variants.find((variant) => variant.id === id);

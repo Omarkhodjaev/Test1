@@ -1,6 +1,6 @@
 class UserBadRequestException extends Error {
-  constructor() {
-    super("login and password must be required");
+  constructor(message) {
+    super(message);
 
     this.statusCode = 400;
   }
@@ -23,8 +23,8 @@ class LoginAlreadyExistException extends Error {
 }
 
 class UserRegisterBadrequestException extends Error {
-  constructor() {
-    super("login, password, role, birthdate and fullName must be required");
+  constructor(message) {
+    super(message);
 
     this.statusCode = 400;
   }
