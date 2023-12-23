@@ -5,19 +5,5 @@
         "description": "US",
         "question_id": 1,
         "is_correct": true
-    },
-    {
-        "id": 2,
-        "title": "B",
-        "description": "UZ",
-        "question_id": 1,
-        "is_correct": true
-    },
-    {
-        "id": 1,
-        "title": "B",
-        "description": "UZ",
-        "question_id": 1,
-        "is_correct": true
     }
 ]

@@ -1,6 +1,9 @@
 const { ResData } = require("../../library/resData");
-const { VariantBadRequestException, VariantIdMustBeNumberException } = require("./exception/variant.exception");
-const { variantScheme , idSchema} = require("./validation/variant.validation");
+const {
+  VariantBadRequestException,
+  VariantIdMustBeNumberException,
+} = require("./exception/variant.exception");
+const { variantScheme, idSchema } = require("./validation/variant.validation");
 
 class VariantController {
   #variantService;
@@ -59,6 +62,23 @@ class VariantController {
       }
 
       const resData = await this.#variantService.update(value, dto);
+      res.status(resData.statusCode).json(resData);
+    } catch (error) {
+      const resData = new ResData(error.message, error.statusCode);
+      res.status(resData.statusCode).json(resData);
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const id = Number(req.params.id);
+      const { error, value } = idSchema.validate(id);
+
+      if (error) {
+        throw new VariantIdMustBeNumberException(error.message);
+      }
+  
+      const resData = await this.#variantService.delete(value);
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(error.message, error.statusCode);

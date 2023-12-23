@@ -20,8 +20,17 @@ class VariantIdMustBeNumberException extends Error {
   }
 }
 
+class VariantNotFoundException extends Error {
+  constructor() {
+    super("This variant not found");
+
+    this.statusCode = 404;
+  }
+}
+
 module.exports = {
   VariantBadRequestException,
   questionIdNotfound,
   VariantIdMustBeNumberException,
+  VariantNotFoundException,
 };

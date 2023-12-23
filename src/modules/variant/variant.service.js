@@ -3,7 +3,10 @@ const path = require("path");
 const { DataSource } = require("../../library/dataSource.js");
 const { generationId } = require("../../library/generationId.js");
 const Variant = require("./entity/variant.entity.js");
-const { questionIdNotfound } = require("./exception/variant.exception.js");
+const {
+  questionIdNotfound,
+  VariantNotFoundException,
+} = require("./exception/variant.exception.js");
 
 class VariantService {
   async create(dto) {
@@ -54,7 +57,7 @@ class VariantService {
     return resData;
   }
 
-  async update(id, dto) {    
+  async update(id, dto) {
     const variantPath = path.join(
       __dirname,
       "../../../database",
@@ -65,21 +68,40 @@ class VariantService {
     const variants = variantsDataSource.read();
 
     let newVariant = variants.find((variant) => variant.id === id);
-    
-    
-      newVariant.title = dto.title,
-      newVariant.description = dto.description,
-      newVariant.question_id =  dto.questionId,
-      newVariant.is_correct = dto.isCorrect
-      
-      
-      const filteredVariant = variants.filter(variant => variant.id !== id);
-      filteredVariant.push(newVariant);
-    variantsDataSource.write(filteredVariant)
+
+    (newVariant.title = dto.title),
+      (newVariant.description = dto.description),
+      (newVariant.question_id = dto.questionId),
+      (newVariant.is_correct = dto.isCorrect);
+
+    const filteredVariant = variants.filter((variant) => variant.id !== id);
+    filteredVariant.push(newVariant);
+    variantsDataSource.write(filteredVariant);
 
     const resData = new ResData("Variant updated", 200, newVariant);
     return resData;
+  }
 
+  async delete(id) {
+    const variantPath = path.join(
+      __dirname,
+      "../../../database",
+      "variants.json"
+    );
+
+    const variantsDataSource = new DataSource(variantPath);
+    const variants = variantsDataSource.read();
+    const foundVariant = variants.find((variant) => variant.id === id);
+    if (!foundVariant) {
+      throw new VariantNotFoundException();
+    }
+    let filteredVariants = variants.filter(
+      (variant) => variant.id !== foundVariant.id
+    );
+
+    variantsDataSource.write(filteredVariants);
+    const resData = new ResData("Variant deleted", 200, foundVariant);
+    return resData;
   }
 
   #findQuestionId(dto) {

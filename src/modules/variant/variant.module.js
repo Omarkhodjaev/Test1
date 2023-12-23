@@ -26,4 +26,8 @@ router.put("/:id", (req, res) => {
   variantController.update(req, res);
 });
 
+router.delete("/:id", (req, res) => {
+  variantController.delete(req, res);
+});
+
 module.exports = { router };
