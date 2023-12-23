@@ -8,7 +8,6 @@ const {
 } = require("./exception/question.exception.js");
 const { Test } = require("../../library/testClass.js");
 const { generationId } = require("../../library/generationId.js");
-const { log } = require("console");
 
 class QuestionService {
   getAllQuestion() {

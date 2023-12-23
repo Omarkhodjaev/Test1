@@ -16,6 +16,7 @@ const {
   databaseCheckTestAndQuest,
 } = require("./exception/test.questions.exception.js");
 
+
 class TestAndQuestionsService {
   getTestAndQuestByQuestId(questionId) {
 
@@ -25,17 +26,20 @@ class TestAndQuestionsService {
       "test_questions.json"
     );
 
-    const questionDataSource = new DataSource(questionPath);
-    const questions = questionDataSource.read();
+    const testQuestionDataSource = new DataSource(questionPath);
+    const testQuestions = testQuestionDataSource.read();
 
-    const foundQuestion = questions.filter(
+    const foundQuestion = testQuestions.filter(
       (question) => question.questId === questionId
     );
+
+
 
     if (!foundQuestion) {
       throw new QuestionNotFoundException();
     }
 
+    
     
 
     const resData = new ResData(
@@ -43,12 +47,10 @@ class TestAndQuestionsService {
       200,
       foundQuestion
     );
-
     return resData;
   }
 
   getTestAndQuestByTestId(testId) {
-
     const testPath = path.join(
       __dirname,
       "../../../database",

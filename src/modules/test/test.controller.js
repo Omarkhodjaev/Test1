@@ -115,7 +115,7 @@ class TestController {
 
         const getQuestionByIDS = await this.#questionService.getByIds(ids);
         getQuestionByIDS.setStatusCode = 400;
-        getQuestionByIDS.setMessage = "you should delete these question ";
+        getQuestionByIDS.setMessage = "you should delete these questions!";
 
         return res.status(getQuestionByIDS.statusCode).json(getQuestionByIDS);
       }

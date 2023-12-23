@@ -1,19 +1,15 @@
 [
     {
+        "id": 14,
+        "title": "yangi savol"
+    },
+    {
         "id": 1,
-        "title": "title test"
+        "title": "yangi savol"
     },
     {
         "id": 2,
-        "title": "salom"
-    },
-    {
-        "id": 3,
-        "title": "salom"
-    },
-    {
-        "id": 4,
-        "title": "Bu yangi test"
+        "title": "yangi savol"
     },
     {
         "id": 5,
@@ -21,6 +17,34 @@
     },
     {
         "id": 6,
+        "title": "yangi savol"
+    },
+    {
+        "id": 7,
+        "title": "yangi savol"
+    },
+    {
+        "id": 8,
+        "title": "yangi savol"
+    },
+    {
+        "id": 9,
+        "title": "yangi savol"
+    },
+    {
+        "id": 10,
+        "title": "yangi savol"
+    },
+    {
+        "id": 11,
+        "title": "yangi savol"
+    },
+    {
+        "id": 12,
+        "title": "yangi savol"
+    },
+    {
+        "id": 13,
         "title": "yangi savol"
     }
 ]

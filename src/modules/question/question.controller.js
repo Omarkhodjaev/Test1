@@ -1,9 +1,13 @@
 const { ResData } = require("../../library/resData");
 
 class QuestionController {
+  #testAndQuestionsService;
   #questionService;
-  constructor(questionService) {
+  #TestService;
+  constructor(questionService, testAndQuestionsService, TestService) {
     this.#questionService = questionService;
+    this.#testAndQuestionsService = testAndQuestionsService;
+    this.#TestService = TestService;
   }
 
   async getAllQuestion(req, res) {
@@ -71,7 +75,21 @@ class QuestionController {
 
   async deleteQuestion(req, res) {
     try {
-      const questId = req.params.id;
+      const questId = Number(req.params.id);
+      const getTestQuestionByQuestion = await this.#testAndQuestionsService.getTestAndQuestByQuestId(questId);
+    
+
+      if (getTestQuestionByQuestion.data.length) {
+        const ids = getTestQuestionByQuestion.data.map(
+          (testQuestion) => testQuestion.testId
+        );
+
+        const getTestByIDS = await this.#TestService.getByIds(ids);
+        getTestByIDS.setStatusCode = 400;
+        getTestByIDS.setMessage = "you should delete these tests!";
+
+        return res.status(getTestByIDS.statusCode).json(getTestByIDS);
+      }
 
       const resData = await this.#questionService.deleteQuestion(
         Number(questId)

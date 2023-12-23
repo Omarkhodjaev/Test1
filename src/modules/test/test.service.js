@@ -2,9 +2,7 @@ const { DataSource } = require("../../library/dataSource.js");
 const path = require("path");
 const { ResData } = require("../../library/resData.js");
 
-const {
-  TestNotFoundException,
-} = require("./exception/test.exception.js");
+const { TestNotFoundException } = require("./exception/test.exception.js");
 
 const { generationId } = require("../../library/generationId.js");
 const { Test } = require("../../library/testClass.js");
@@ -44,7 +42,6 @@ class TestService {
   }
 
   updateTest(dto, testId) {
-
     const { data: foundTestById } = this.getOneTestById(testId);
 
     foundTestById.title = dto.title;
@@ -93,6 +90,30 @@ class TestService {
     const resData = new ResData("deleted test by id", 200, foundTestById);
 
     return resData;
+  }
+  getByIds(ids) {
+    const testPath = path.join(__dirname, "../../../database", "tests.json");
+
+    const testsDataSource = new DataSource(testPath);
+    const tests = testsDataSource.read();
+
+    const data = [];
+
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+
+      const foundByIdTest = tests.find((question) => question.id === id);
+
+      if (foundByIdTest) {
+        data.push(foundByIdTest);
+      }
+    }
+
+    if (ids.length !== data.length) {
+      throw new TestNotFoundException();
+    }
+
+    return new ResData("ok", 200, data);
   }
 }
 

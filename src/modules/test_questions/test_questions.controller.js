@@ -23,7 +23,7 @@ class TestQuestionController {
       if (error) {
         throw new questionIdMustBeNumberException();
       }
-
+      
       const resData = await this.#testQuestionService.getTestAndQuestByQuestId(
         value
       );
@@ -43,7 +43,6 @@ class TestQuestionController {
   async getTestAndQuestByTestId(req, res) {
     try {
       const { error, value } = idSchema.validate(Number(req.params.id));
-
       if (error) {
         throw new TestIdMustBeNumberException();
       }
