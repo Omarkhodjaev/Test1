@@ -14,8 +14,7 @@ class UserPassedTestService {
     const user = this.#_userFindById(dto.userId);
     const test = this.#_testFindById(dto.testId);
 
-    console.log("u",user);
-    console.log("t",test);
+   
 
     if (!user) {
       throw new userNotFound();
@@ -56,7 +55,7 @@ class UserPassedTestService {
       minutes +
       ":" +
       seconds;
-      console.log(date);
+      
 
     const newUser = new userPassedTest(
       id,

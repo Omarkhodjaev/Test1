@@ -25,7 +25,7 @@ class UserPassedTestController {
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(error.message, error.statusCode);
-      // console.log(resData);
+      
       res.status(resData.statusCode).json(resData);
     }
   }

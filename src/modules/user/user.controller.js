@@ -53,7 +53,7 @@ class UserController {
   async register(req, res) {
     try {
       const dto = req.body;
-      console.log(dto);
+   
 
       if (
         !dto ||
@@ -109,7 +109,6 @@ class UserController {
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
-      // console.log(error);
       const resData = new ResData(error.message, error.statusCode);
       res.status(resData.statusCode).json(resData);
     }

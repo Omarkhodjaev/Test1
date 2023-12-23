@@ -3,8 +3,8 @@ class Variant {
       this.id = id;
       this.title = title;
       this.description = description;
-      this.questionId = questionId;
-      this.isCorrect = isCorrect;
+      this.question_id = questionId;
+      this.is_correct = isCorrect;
     }
   }
   

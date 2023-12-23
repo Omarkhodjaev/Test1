@@ -10,12 +10,20 @@ const variantController = new VariantController(variantService);
 const router = Router();
 
 router.post(
-  "/create",
+  "/",
   authorizationMiddleware.checkUser,
   authorizationMiddleware.adminRole,
   (req, res) => {
     variantController.create(req, res);
   }
 );
+
+router.get("/getallvariants", (req, res) => {
+  variantController.getAll(req, res);
+});
+
+router.put("/:id", (req, res) => {
+  variantController.update(req, res);
+});
 
 module.exports = { router };
