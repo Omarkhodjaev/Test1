@@ -13,8 +13,8 @@ router.use("/test", test.router);
 router.use("/question", question.router);
 router.use("/testandquestion", testAndQuestion.router);
 router.use("/user", user.router);
-router.use("/file-upload", file.router);
 router.use("/variant", variant.router);
 router.use("/user-passed-test", userPassedTest.router);
+router.use("/file", file.router);
 
 module.exports = { router };

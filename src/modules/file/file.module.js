@@ -1,14 +1,14 @@
 const { Router } = require("express");
-const { FileController } = require("./file.controller");
 const { FileService } = require("./file.service");
-
-const router = Router();
+const { FileController } = require("./file.controller.js");
 
 const fileService = new FileService();
 const fileController = new FileController(fileService);
 
-router.post("/",  (req, res) => {
-  fileController.createFile(req, res);
+const router = Router();
+
+router.post("/single-file-upload", (req, res) => {
+  fileController.singleFileUpload(req, res);
 });
 
 module.exports = { router };

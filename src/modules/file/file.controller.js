@@ -1,12 +1,22 @@
+const { ResData } = require("../../library/resData");
+
 class FileController {
-  #fileService;
-  constructor(fileService) {
-    this.#fileService = fileService;
+  #FileService;
+  constructor(FileService) {
+    this.#FileService = FileService;
   }
 
-  async createFile(req, res) {
-    const data = await this.#fileService.createFile(req, res);
-    res.json(data);
+  async singleFileUpload(req, res) {
+    try {
+      const file = req.files.media;
+      
+      const resData = await this.#FileService.singleUpload(file);
+     
+      res.status(resData.statusCode).json(resData);
+    } catch (error) {
+      const resData = new ResData(error.message, error.statusCode);
+      res.status(resData.statusCode).json(resData);
+    }
   }
 }
 
