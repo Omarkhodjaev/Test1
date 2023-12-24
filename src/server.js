@@ -30,26 +30,6 @@ app.use("/api", modules.router);
 
 
 
-// app.post("/file-upload", (req, res) => {
-//   try {
-//     const file = req.files.media;
-//     const fileName = `${uuid.v4()}${path.extname(file.name)}`;
-
-//     const uploadPath = path.join(__dirname, "../uploads", fileName);
-
-//     const fileURL = fileServerUrl + fileName;
-
-//     file.mv(uploadPath, (err) => {
-//       if (err) {
-//         res.status(400).json(err.message);
-//       }
-//     });
-//     res.json(fileURL);
-//   } catch (error) {
-//     res.json(error.message);
-//   }
-// });
-
 // app.post("/file-upload-multiple", (req, res) => {
 //   try {
 //     const file = req.files.media;

@@ -2,9 +2,25 @@
     {
         "id": 1,
         "original_name": "paul-winwar-eDKeX0I2SrE-unsplash.jpg",
-        "path": "http://localhost:3000/d498a848-1939-4812-a672-d981dc54b22e.jpg",
+        "path": "http://localhost:3000/8e539b8f-91cf-4119-873d-288a3b9e927b.jpg",
         "size": 4048433,
         "mime_type": "image/jpeg",
-        "date": "2023-12-25 00:03:25"
+        "date": "2023-12-25 01:08:30"
+    },
+    {
+        "id": 2,
+        "original_name": "paul-winwar-eDKeX0I2SrE-unsplash.jpg",
+        "path": "http://localhost:3000/4ee6e1b6-339c-43ab-8b6f-c29308a1a8fa.jpg",
+        "size": 4048433,
+        "mime_type": "image/jpeg",
+        "date": "2023-12-25 01:08:30"
+    },
+    {
+        "id": 3,
+        "original_name": "paul-winwar-eDKeX0I2SrE-unsplash.jpg",
+        "path": "http://localhost:3000/4a2bccea-c448-4721-b3b3-5a52eb5f3341.jpg",
+        "size": 4048433,
+        "mime_type": "image/jpeg",
+        "date": "2023-12-25 01:08:30"
     }
 ]

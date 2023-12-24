@@ -1,29 +1,27 @@
 const dateGenerator = () => {
-    const currentDate = new Date();
+  const currentDate = new Date();
 
-    const year = currentDate.getFullYear();
-    const month = ("0" + (currentDate.getMonth() + 1)).slice(-2); // Months are zero-based
-    const day = ("0" + currentDate.getDate()).slice(-2);
-    const hours = ("0" + currentDate.getHours()).slice(-2);
-    const minutes = ("0" + currentDate.getMinutes()).slice(-2);
-    const seconds = ("0" + currentDate.getSeconds()).slice(-2);
+  const year = currentDate.getFullYear();
+  const month = ("0" + (currentDate.getMonth() + 1)).slice(-2); // Months are zero-based
+  const day = ("0" + currentDate.getDate()).slice(-2);
+  const hours = ("0" + currentDate.getHours()).slice(-2);
+  const minutes = ("0" + currentDate.getMinutes()).slice(-2);
+  const seconds = ("0" + currentDate.getSeconds()).slice(-2);
 
-    
-    const date =
-      year +
-      "-" +
-      month +
-      "-" +
-      day +
-      " " +
-      hours +
-      ":" +
-      minutes +
-      ":" +
-      seconds;
-      
+  const date =
+    year +
+    "-" +
+    month +
+    "-" +
+    day +
+    " " +
+    hours +
+    ":" +
+    minutes +
+    ":" +
+    seconds;
 
-      return date;
-}
+  return date;
+};
 
-module.exports = {dateGenerator}
+module.exports = { dateGenerator };

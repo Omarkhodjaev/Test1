@@ -18,6 +18,19 @@ class FileController {
       res.status(resData.statusCode).json(resData);
     }
   }
+
+  async multipleFilesUpload(req,res){
+    try {
+      const files = req.files.media;
+
+      const resData = await this.#FileService.multipleUpload(files);
+      
+      res.status(resData.statusCode).json(resData);
+    } catch (error) {
+      const resData = new ResData(error.message, error.statusCode);
+      res.status(resData.statusCode).json(resData);
+    }
+  }
 }
 
 module.exports = { FileController };
