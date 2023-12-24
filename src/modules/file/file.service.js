@@ -7,7 +7,6 @@ const { File } = require("./entity/file.entity");
 const { generationId } = require("../../library/generationId");
 const { dateGenerator } = require("../../library/dateGenerator");
 class FileService {
-
   singleUpload(file) {
     const filePath = path.join(__dirname, "../../../database", "files.json");
     const fileDatasource = new DataSource(filePath);
@@ -56,9 +55,8 @@ class FileService {
     const filePath = path.join(__dirname, "../../../database", "files.json");
     const fileDatasource = new DataSource(filePath);
     const filesInDatabase = fileDatasource.read();
-    
+
     files.forEach((f) => {
-      
       const fileName = `${uuid.v4()}${path.extname(f.name)}`;
 
       const uploadPath = path.join(__dirname, "../../../uploads", fileName);
@@ -77,31 +75,32 @@ class FileService {
       const id = generationId(filesInDatabase);
       const date = dateGenerator();
 
+      const newFile = new File(id, f.name, fileURL, f.size, f.mimetype, date);
 
-      const newFile = new File(
-        id,
-        f.name,
-        fileURL,
-        f.size,
-        f.mimetype,
-        date
-      );
-
-      
       newFiles.push(newFile);
-     
+
       filesInDatabase.push(newFile);
       console.log(filesInDatabase);
     });
-    
+
     fileDatasource.write(filesInDatabase);
     const resData = new ResData("Single file uploaded", 200, {
       newFiles,
       fileUrlStorage,
     });
-    
+
     return resData;
   }
+
+  getAll() {
+    const filePath = path.join(__dirname, "../../../database", "files.json");
+    const fileDatasource = new DataSource(filePath);
+    const files = fileDatasource.read();
+
+    const resData = new ResData("All files are taken", 200, files);
+    return resData;
+  }
+
 }
 
 module.exports = { FileService };

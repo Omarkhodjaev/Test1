@@ -15,4 +15,8 @@ router.post("/multiple-files-upload", (req, res) => {
   fileController.multipleFilesUpload(req, res);
 });
 
+router.get("/getall", (req, res) => {
+  fileController.getAll(req, res);
+});
+
 module.exports = { router };

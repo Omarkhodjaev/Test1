@@ -9,9 +9,9 @@ class FileController {
   async singleFileUpload(req, res) {
     try {
       const file = req.files.media;
-      
+
       const resData = await this.#FileService.singleUpload(file);
-     
+
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(error.message, error.statusCode);
@@ -19,18 +19,25 @@ class FileController {
     }
   }
 
-  async multipleFilesUpload(req,res){
+  async multipleFilesUpload(req, res) {
     try {
       const files = req.files.media;
 
       const resData = await this.#FileService.multipleUpload(files);
-      
+
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(error.message, error.statusCode);
       res.status(resData.statusCode).json(resData);
     }
   }
+
+  async getAll(req,res){
+    const resData = await this.#FileService.getAll();
+console.log(res);
+    res.status(resData.statusCode).json(resData);
+  }
+
 }
 
 module.exports = { FileController };

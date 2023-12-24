@@ -30,53 +30,7 @@ app.use("/api", modules.router);
 
 
 
-// app.post("/file-upload-multiple", (req, res) => {
-//   try {
-//     const file = req.files.media;
 
-//     if (Array.isArray(file)) {
-//       const files = [];
-
-//       file.forEach((f) => {
-//         const fileName = `${uuid.v4()}${path.extname(f.name)}`;
-
-//         const uploadPath = path.join(__dirname, "../uploads", fileName);
-
-//         const fileURL = fileServerUrl + fileName;
-
-//         f.mv(uploadPath, (err) => {
-//           if (err) {
-//             res.status(400).json(err.message);
-//           }
-//         });
-
-//         files.push(fileURL);
-//       });
-
-//       res.json(files);
-//     } else {
-//       const file = req.files.media;
-
-//       const fileName = `${uuid.v4()}${path.extname(file.name)}`;
-
-//       const uploadPath = path.join(__dirname, "../uploads", fileName);
-
-//       const fileURL = fileServerUrl + fileName;
-
-//       file.mv(uploadPath, (err) => {
-//         if (err) {
-//           res.status(400).json(err.message);
-//         }
-//       });
-
-//       res.json(fileURL);
-//     }
-
-//     res.json("fileURL");
-//   } catch (error) {
-//     res.json(error.message);
-//   }
-// });
 
 app.listen(serverPort, () => {
   console.log(`http://localhost:${serverPort}`);
