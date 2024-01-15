@@ -2,16 +2,16 @@ const uuid = require("uuid");
 const path = require("path");
 const { ResData } = require("../../library/resData");
 const { fileServerUrl } = require("../../config");
-const { DataSource } = require("../../library/dataSource");
-const { File } = require("./entity/file.entity");
-const { generationId } = require("../../library/generationId");
-const { dateGenerator } = require("../../library/dateGenerator");
-class FileService {
-  singleUpload(file) {
-    const filePath = path.join(__dirname, "../../../database", "files.json");
-    const fileDatasource = new DataSource(filePath);
-    const files = fileDatasource.read();
+const { FileEntity } = require("./entity/file.entity");
+const { FileRepository } = require("./file.repository.js");
 
+class FileService {
+  #repository;
+  constructor() {
+    this.#repository = new FileRepository();
+  }
+
+  async singleUpload(file) {
     const fileName = `${uuid.v4()}${path.extname(file.name)}`;
 
     const uploadPath = path.join(__dirname, "../../../uploads", fileName);
@@ -25,22 +25,11 @@ class FileService {
       }
     });
 
-    const id = generationId(files);
-    const date = dateGenerator();
+    const createdFile = new FileEntity(file, fileURL);
 
-    const newFile = new File(
-      id,
-      file.name,
-      fileURL,
-      file.size,
-      file.mimetype,
-      date
-    );
+    const newFile = await this.#repository.insertFile(createdFile);
 
-    files.push(newFile);
-    fileDatasource.write(files);
-
-    const resData = new ResData("Single file uploaded", 200, {
+    const resData = new ResData("A file uploaded", 200, {
       newFile,
       fileURL,
     });
@@ -48,59 +37,63 @@ class FileService {
     return resData;
   }
 
-  multipleUpload(files) {
-    let fileUrlStorage = [];
+  async multipleUpload(files) {
+    let filesUrls = [];
     let newFiles = [];
 
-    const filePath = path.join(__dirname, "../../../database", "files.json");
-    const fileDatasource = new DataSource(filePath);
-    const filesInDatabase = fileDatasource.read();
-
-    files.forEach((f) => {
+    for (const f of files) {
       const fileName = `${uuid.v4()}${path.extname(f.name)}`;
-
       const uploadPath = path.join(__dirname, "../../../uploads", fileName);
-
       let fileURL = fileServerUrl + fileName;
 
-      f.mv(uploadPath, (err) => {
-        if (err) {
-          const resData = new ResData(err.message, 400);
-          return resData;
-        }
-      });
+      // Wrap the file upload in a Promise to make it awaitable
+      const uploadFile = () => {
+        return new Promise((resolve, reject) => {
+          f.mv(uploadPath, (err) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          });
+        });
+      };
 
-      fileUrlStorage.push(fileURL);
+      try {
+        await uploadFile();
+      } catch (err) {
+        const resData = new ResData(err.message, 400);
+        return resData;
+      }
 
-      const id = generationId(filesInDatabase);
-      const date = dateGenerator();
+      const createdFile = new FileEntity(f, fileURL);
+      const newFile = await this.#repository.insertFile(createdFile);
 
-      const newFile = new File(id, f.name, fileURL, f.size, f.mimetype, date);
-
+      filesUrls.push(fileURL);
       newFiles.push(newFile);
+    }
 
-      filesInDatabase.push(newFile);
-      console.log(filesInDatabase);
-    });
-
-    fileDatasource.write(filesInDatabase);
-    const resData = new ResData("Single file uploaded", 200, {
+    const resData = new ResData("Multiple files upload", 200, {
       newFiles,
-      fileUrlStorage,
+      filesUrls,
     });
 
     return resData;
   }
 
-  getAll() {
-    const filePath = path.join(__dirname, "../../../database", "files.json");
-    const fileDatasource = new DataSource(filePath);
-    const files = fileDatasource.read();
+  async getAll() {
+    const files = await this.#repository.getAllFiles();
 
     const resData = new ResData("All files are taken", 200, files);
     return resData;
   }
 
+  async getOneById(fileId) {
+    const foundFile = await this.#repository.findOneByFileId(fileId);
+
+    const resData = new ResData("One file taken by file id", 200, foundFile);
+    return resData;
+  }
 }
 
 module.exports = { FileService };

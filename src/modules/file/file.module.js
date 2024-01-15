@@ -7,16 +7,20 @@ const fileController = new FileController(fileService);
 
 const router = Router();
 
-router.post("/single-file-upload", (req, res) => {
+router.post("/upload-one", (req, res) => {
   fileController.singleFileUpload(req, res);
 });
 
-router.post("/multiple-files-upload", (req, res) => {
+router.post("/upload-multiple", (req, res) => {
   fileController.multipleFilesUpload(req, res);
 });
 
-router.get("/getall", (req, res) => {
+router.get("/allfiles", (req, res) => {
   fileController.getAll(req, res);
+});
+
+router.get("/:id", (req, res) => {
+  fileController.getOneById(req, res);
 });
 
 module.exports = { router };

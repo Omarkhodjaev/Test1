@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "login": "test",
+    "password": "ok",
+    "full_name": "ok",
+    "birthdate": "2000-10-10",
+    "role": "user",
+    "file": {
+      "id": 1,
+      "original_name": "ok",
+      "path": "http://localhost:7777/file/69a5f046-2b18-48d2-952d-ef375884ab4b.png",
+      "size": 10,
+      "mime_type": "audio/mp3",
+      "date": "2023-10-10 12:12:12"
+    }
+  },
+  {
+    "id": 2,
+    "login": "admin",
+    "password": "ok",
+    "full_name": "ok",
+    "birthdate": "2000-10-10",
+    "role": "admin",
+    "file_id": 1
+  },
+  {
+    "id": 3,
+    "login": "test7",
+    "password": "$2b$10$4cJ6bLV0T39..kldEmHbdOo.O4ssXg4FKnG6ixRAC.n8EiT0IGep.",
+    "full_name": "Toxir",
+    "birthdate": "2000-10-10",
+    "role": "admin",
+    "file_id": 2
+  }
+]

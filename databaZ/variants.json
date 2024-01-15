@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "A",
+    "description": "olma",
+    "is_correct": true,
+    "question": { "id": 1, "title": "apple in uzbek" }
+  },
+  {
+    "id": 2,
+    "title": "B",
+    "description": "nok",
+    "is_correct": false,
+    "question": { "id": 1, "title": "apple in uzbek" }
+  },
+  {
+    "id": 3,
+    "title": "C",
+    "description": "parta",
+    "question_id": 1,
+    "is_correct": false
+  }
+]

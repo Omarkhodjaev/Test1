@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "user": {
+      "id": 1,
+      "login": "test",
+      "password": "ok",
+      "full_name": "ok",
+      "birthdate": "2000-10-10",
+      "role": "user",
+      "file": {
+        "id": 1,
+        "original_name": "ok",
+        "path": "http://localhost:7777/file/69a5f046-2b18-48d2-952d-ef375884ab4b.png",
+        "size": 10,
+        "mime_type": "audio/mp3",
+        "date": "2023-10-10 12:12:12"
+      }
+    },
+    "test": {
+      "id": 1,
+      "title": "1-bo'lim"
+    },
+    "total_question": 2,
+    "passed_question": 0,
+    "date": "2000-10-10 12:12:12"
+  },
+  {
+    "id": 2,
+    "user_id": 1,
+    "test_id": 1,
+    "total_question": 2,
+    "passed_question": 2,
+    "date": "2000-10-11 11:12:12"
+  }
+]

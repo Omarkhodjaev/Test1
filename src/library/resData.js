@@ -6,12 +6,12 @@ class ResData {
       (this.error = error);
   }
 
-  set setMessage(message){
-    this.message = message
+  set setMessage(message) {
+    this.message = message;
   }
 
-  set setStatusCode(statusCode){
-    this.statusCode = statusCode
+  set setStatusCode(statusCode) {
+    this.statusCode = statusCode;
   }
 }
 module.exports = { ResData };
