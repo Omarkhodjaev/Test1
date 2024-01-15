@@ -6,7 +6,6 @@ const {
 } = require("./exception/user.exception");
 const {
   userScheme,
-  idSchema,
   userRegisterScheme,
 } = require("./validation/user.validation");
 
@@ -17,20 +16,16 @@ class UserController {
   }
 
   async getUsers(req, res) {
-    const resData = await this.#userService.getAllUsers();
+    const resData = await this.#userService.getAll();
     return res.status(resData.statusCode).json(resData);
   }
 
   async getUser(req, res) {
     try {
-      const userId = Number(req.params.id);
-      const { error, value } = idSchema.validate(userId);
+      const userId = req.params.id;
 
-      if (error) {
-        throw new UserNotFound(error.message);
-      }
+      const resData = await this.#userService.getUserById(userId);
 
-      const resData = await this.#userService.getUserById(value);
       return res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(
@@ -43,11 +38,10 @@ class UserController {
     }
   }
 
-  async updateUser(req, res) {
+  async update(req, res) {
     try {
       const dto = req.body;
-      const userId = Number(req.params.id);
-      const { error, value } = idSchema.validate(userId);
+      const userId = req.params.id;
 
       const validated = userScheme.validate(dto);
 
@@ -55,11 +49,8 @@ class UserController {
         throw new UserBadRequestException(validated.error.message);
       }
 
-      if (error) {
-        throw new UserNotFound(error.message);
-      }
+      const resData = await this.#userService.update(dto, userId);
 
-      const resData = await this.#userService.updateUser(dto, value);
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(
@@ -122,14 +113,9 @@ class UserController {
 
   async deleteUser(req, res) {
     try {
-      const userId = Number(req.params.id);
-      const { error, value } = idSchema.validate(userId);
+      const userId = req.params.id;
 
-      if (error) {
-        throw new UserNotFound(error.message);
-      }
-
-      const resData = await this.#userService.deleteUser(value);
+      const resData = await this.#userService.deleteUser(userId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {

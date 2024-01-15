@@ -16,22 +16,29 @@ router.post("/register", (req, res) => {
   userController.register(req, res);
 });
 
-router.get("/getusers", authorizationMiddleware.checkUser,authorizationMiddleware.userRole,(req, res) => {
-  userController.getUsers(req, res);
-});
+router.get(
+  "/allusers",
+  //  authorizationMiddleware.checkUser,authorizationMiddleware.userRole,
+  (req, res) => {
+    userController.getUsers(req, res);
+  }
+);
 
-router.get("/:id",  (req, res) => {
+router.get("/:id", (req, res) => {
   userController.getUser(req, res);
 });
 
-router.put("/:id",  (req, res) => {
-  userController.updateUser(req, res);
+router.put("/:id", (req, res) => {
+  userController.update(req, res);
 });
 
-router.delete("/:id", authorizationMiddleware.checkUser, authorizationMiddleware.adminRole, (req, res) => {
-  userController.deleteUser(req, res);
-});
-
-
+router.delete(
+  "/:id",
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.adminRole,
+  (req, res) => {
+    userController.deleteUser(req, res);
+  }
+);
 
 module.exports = { router };

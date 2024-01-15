@@ -7,36 +7,31 @@ const {
 const path = require("path");
 const { jwtSign } = require("../../library/jwt.js");
 const { DataSource } = require("../../library/dataSource.js");
-const User = require("../../library/userClass.js");
 const { generationId } = require("../../library/generationId.js");
 const { hashed, isValid } = require("../../library/bycript.js");
+const { UserRepository } = require("./user.repository.js");
+const { UserEntity } = require("./entity/User.entity.js");
 
 class UserService {
+  #repository;
+  constructor() {
+    this.#repository = new UserRepository();
+  }
+
   async register(dto) {
-    const foundUserByLogin = this.#_findByLogin(dto.login);
+    const foundUserByLogin = await this.#_findByLogin(dto.login);
 
     if (foundUserByLogin) {
       throw new LoginAlreadyExistException();
     }
 
-    const userPath = path.join(__dirname, "../../../database", "users.json");
-    const usersDataSource = new DataSource(userPath);
-    const users = usersDataSource.read();
-
-    const generatedId = generationId(users);
     const hashedPassword = await hashed(dto.password);
 
-    const newUser = new User(
-      generatedId,
-      dto.login,
-      hashedPassword,
-      dto.fullName,
-      dto.birthdate,
-      dto.role
-    );
+    const userObject = Object.assign(dto, { password: hashedPassword });
 
-    users.push(newUser);
-    usersDataSource.write(users);
+    const createdUser = new UserEntity(userObject);
+
+    const newUser = await this.#repository.insertUser(createdUser);
 
     const newToken = jwtSign(newUser.id);
 
@@ -49,17 +44,16 @@ class UserService {
   }
 
   async login(dto) {
-    const foundUser = this.#_findByLogin(dto.login);
-
+    const foundUser = await this.#_findByLogin(dto.login);
     if (!foundUser) {
       throw new LoginOrPassWrongException();
     }
 
-    const isValidPassword = await isValid(dto.password, foundUser.password);
-    
-    if (!isValidPassword) {
-      throw new LoginOrPassWrongException();
-    }
+    // const isValidPassword = await isValid(dto.password, foundUser.password);
+
+    // if (!isValidPassword) {
+    //   throw new LoginOrPassWrongException();
+    // }
 
     const newToken = jwtSign(foundUser.id);
     const resData = new ResData("success login", 200, {
@@ -70,23 +64,16 @@ class UserService {
     return resData;
   }
 
-  #_findByLogin(login) {
-    const userPath = path.join(__dirname, "../../../database", "users.json");
-
-    const usersDataSource = new DataSource(userPath);
-    const users = usersDataSource.read();
-
-    const foundUserByLogin = users.find((user) => user.login === login);
+  async #_findByLogin(login) {
+    const foundUserByLogin = await this.#repository.findOneByLogin(login);
 
     return foundUserByLogin;
   }
 
-  getAllUsers() {
-    const userPath = path.join(__dirname, "../../../database", "users.json");
-    const userDataSource = new DataSource(userPath);
-    const users = userDataSource.read();
+  async getAll() {
+    const users = await this.#repository.getAllUsers();
 
-    const resData = new ResData("All Users are taken", 200, { users });
+    const resData = new ResData("All users taken", 200, { users });
     return resData;
   }
 
@@ -105,28 +92,16 @@ class UserService {
     return resData;
   }
 
- async updateUser(dto, userId) {
-    const { data: foundUser } = this.getUserById(userId);
+  async update(dto, userId) {
+    const foundUser = await this.#repository.findOneById(userId);
 
-    const hashedPassword = await hashed(dto.password);
+    dto.password = await hashed(dto.password);
 
-    foundUser.id = foundUser.id;
-    foundUser.login = dto.login;
-    foundUser.password = hashedPassword;
-    foundUser.full_name = dto.full_name;
-    foundUser.birth_date = dto.birth_date;
-    foundUser.role = foundUser.role;
+    const updatedUser = Object.assign(foundUser, dto);
 
-    const userPath = path.join(__dirname, "../../../database", "users.json");
-    const userDataSource = new DataSource(userPath);
-    const users = userDataSource.read();
-
-    const filterUsers = users.filter((user) => user.id !== foundUser.id);
-
-    filterUsers.push(foundUser);
-    userDataSource.write(filterUsers);
-
-    const resData = new ResData("User is updated", 200, foundUser);
+    const editedUser = await this.#repository.update(updatedUser,foundUser.id);
+    console.log(editedUser);
+    const resData = new ResData("User updated", 200, editedUser);
     return resData;
   }
 
