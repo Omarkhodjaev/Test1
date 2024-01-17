@@ -18,9 +18,12 @@ class FileController {
       }
 
       const file = req.files?.media;
+
       file.name = req.body.original_name
         ? req.body.original_name + path.extname(file.name)
         : file.name;
+        
+      
 
       const resData = await this.#FileService.singleUpload(file);
 

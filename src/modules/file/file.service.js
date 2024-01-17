@@ -29,6 +29,8 @@ class FileService {
 
     const newFile = await this.#repository.insertFile(createdFile);
 
+    console.log(newFile);
+
     const resData = new ResData("A file uploaded", 200, {
       newFile,
       fileURL,
